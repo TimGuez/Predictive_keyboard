@@ -60,10 +60,9 @@ La deuxième piste pour améliorer les frappes économisées en vue de l’utili
 
 ## Bibliographie :
 
-[https://www.deeplearning.ai]/ (et les supports coursera)
-[https://keras.io/] (documentation)
-[https://www.tensorflow.org/api_docs] (documentation)
-[https://medium.com/@david.campion/text-generation-using-bidirectional-lstm-and-doc2vec-models-1-3-8979eb65cb3a]
-[https://www.yorku.ca/mack/hcimobile02.html]
-[https://www.tensorflow.org/tensorboard/hyperparameter_tuning_with_hparams]
-
+https://www.deeplearning.ai (et les supports coursera)
+https://keras.io/ (documentation)
+https://www.tensorflow.org/api_docs (documentation)
+https://medium.com/@david.campion/text-generation-using-bidirectional-lstm-and-doc2vec-models-1-3-8979eb65cb3a
+https://www.yorku.ca/mack/hcimobile02.html
+https://www.tensorflow.org/tensorboard/hyperparameter_tuning_with_hparams
