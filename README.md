@@ -32,10 +32,15 @@ Le preprocessing avait deux objectifs :
 Le preprocessing génère des séquences de vecteurs, afin d’entrainer un réseau de neurone récurrent (RNN, GRU, LSTM, etc.)
 Le dictionnaire obtenu (c.a.d. la base orthonormée générée) contient 20 000 mots. On pourrait utiliser des techniques de réduction dimensionnelle (Embedding, TF-IDF, etc.) pour améliorer les résultats, si le besoin s’en fait sentir.
 
+
+L'aspect des données après le préprocessing impose plusieurs choix techniques :
+- **La ratio des données train/test :** dans le cas d'un jeu de donnée vraiment large, on peut réduire la proportion de test
+- **La nécessitée d'un Batch Generator :** En effet quelques centaines de miliers de mots, répartis sur un dictionnaire de 20 000 mots, donnent un matrice assez volumineuse, qui ne tenait pas en mémoire sur mon poste. J'ai donc utilisé un batch generator. On lit les données progressivement, batch par batch. Le batch generator permet de mélanger les données (*shuffle*) et de créer les batches progressivement, pendant l'entraînement. Cela réduit la taille de mémoire nécessaire mais cela augmente le temps d'entraînement puisqu'on fait de la lecture/écriture à la place.
+
 ## Modèle :
 
 Pour tous les modèles, la fonction de coût est binary crossentropy, et la métrique choisie pour évaluer les modèles est la categorical crossentropy. Ces choix sont dictés par le fait qu’on traite d’un modèle de classification dans 20 000 catégorie (taille du dictionnaire).
-J’ai procédé par évolution successive du modèle. J’ai commencé par un modèle de RNN simple (faible performance : 0.3% de classification correcte). Je suis rapidement passé à un LSTM, qui semble une solution plébiscitée pour les réseaux de génération de texte. Les performances étaient meilleures (3% de classification correcte) mais pas encore suffisante. On trouve des performances de l’ordre de 30% dans la littérature. J’ai donc opté pour un nouveau modèle : LSTM bidirectionnel avec une couche dropout et une activation softmax (utile pour la classification vectorielle).
+J’ai procédé par évolution successive du modèle. J’ai commencé par un modèle de RNN simple (faible performance : 0.3% de classification correcte). Je suis rapidement passé à un LSTM, qui semble une solution plébiscitée pour les réseaux de génération de texte (voir l'étude de l'université de Stanford dans la bibliographie). Les performances étaient meilleures (3% de classification correcte) mais pas encore suffisante. On trouve des performances de l’ordre de 30% dans la littérature. J’ai donc opté pour un nouveau modèle : LSTM bidirectionnel avec une couche dropout et une activation softmax (utile pour la classification vectorielle).
 
 ![Alt text](doc/Model_graph.PNG "HP tuning result for LSTM")
 
@@ -77,3 +82,4 @@ La deuxième piste pour améliorer les frappes économisées en vue de l’utili
 - https://medium.com/@david.campion/text-generation-using-bidirectional-lstm-and-doc2vec-models-1-3-8979eb65cb3a
 - https://www.yorku.ca/mack/hcimobile02.html
 - https://www.tensorflow.org/tensorboard/hyperparameter_tuning_with_hparams
+- Evaluating Generative Models for Text Generation, *Prasad Kawthekar*, *Raunaq Rewari* and *Suvrat Bhooshan* - Stanford University
